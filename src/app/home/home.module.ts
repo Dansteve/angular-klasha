@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { AngularKlashaModule } from 'dist/angular-klasha';
+// import { AngularKlashaModule } from 'project/angular-klasha/src/public_api';
 
 
 @NgModule({
@@ -12,7 +14,8 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    AngularKlashaModule.forRoot('GByi/gkhn5+BX4j6uI0lR7HCVo2NvTsVAQhyPko/uK4=', '1', true)
   ],
   declarations: [HomePage]
 })

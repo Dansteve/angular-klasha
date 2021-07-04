@@ -1,20 +1,42 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       Blank
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div id="container" class="ion-text-center">
+    <p><strong class="ion-padding">Welcome to Dansteve Adekanbi</strong></p>
+    <p><strong class="ion-padding">Angular-Klasha package testing</strong></p>
+    <br>
+    <div class="ion-margin">
+      <ion-button angular-klasha class="ion-no-margin" shape="round" color="success" [klashaOptions]="options"
+        (callBack)="paymentDone($event)" (click)="paymentInit($event)">
+        Directive Button Pay
+      </ion-button>
+    </div>
+    <br>
+    <div>
+      <angular-klasha class="ComponentButtonPay" [klashaOptions]="options" (callBack)="paymentDone($event)">
+        Component Button Pay
+      </angular-klasha>
+    </div>
+
+    <div *ngIf="paymentData" class="ion-margin">
+      <div>Payment Data</div>
+      <code>
+        {{paymentData | json}}
+      </code>
+    </div>
   </div>
+
+
 </ion-content>

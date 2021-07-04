@@ -1,0 +1,245 @@
+# angular-klasha
+
+> This is an angular module that abstracts the complexity of making klasha payments.
+
+## Demo
+
+![Demo](App.png?raw=true "Demo Image")
+
+## USAGE
+
+### 1. Install the module
+
+```sh
+npm install --save angular-klasha
+```
+
+### 2. Import the module
+
+In your `app.module.ts` or any module where the component or directive would be used like so:
+
+```ts
+import { NgModule } from '@angular/core';
+
+import { AngularKlashaModule } from 'angular-klasha';
+...
+
+@NgModule({
+  imports: [
+    AngularKlashaModule.forRoot('merchantKey','businessId',false),
+  ]
+})
+
+export class AppModule {}
+```
+
+### 3. Implement in your project
+
+There are two available options
+
+- **AngularKlashaComponent**: Renders a button which when clicked loads klasha Inline in an iframe
+
+  ```html
+  <angular-klasha
+    [fullname]="'some-random-str'"
+    [phone_number]="'some-random-str'"
+    [paymentDescription]="'some-random-str'"
+    [email]="'mailexample@mail.com'"
+    [amount]="'1000000'"
+    [merchantKey]="'some-random-str'"
+    [businessId]="'some-random-str'"
+    [tx_ref]="'some-random-str'"
+    (paymentInit)="paymentInit()"
+    (callBack)="paymentDone($event)"
+  >
+    Pay with Klasha
+  </angular-klasha>
+  ```
+
+- **AngularKlashaDirective**: A directive that loads klasha inline in an iframe when clicked
+
+```html
+<button
+  angular-klasha
+  [fullname]="'some-random-str'"
+  [phone_number]="'some-random-str'"
+  [paymentDescription]="'some-random-str'"
+  [email]="'mailexample@mail.com'"
+  [amount]="'1000000'"
+  [merchantKey]="'some-random-str'"
+  [businessId]="'some-random-str'"
+  [tx_ref]="'some-random-str'"
+  (paymentInit)="paymentInit()"
+  [class]="'btn btn-primary'"
+  (callBack)="paymentDone($event)"
+>
+  Pay with Klasha
+</button>
+```
+
+And then in your `component.ts`
+
+```ts
+import { Component, OnInit } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+})
+export class AppComponent implements OnInit {
+  tx_ref = '' + Math.floor((Math.random() * 1000000000) + 1);
+  constructor() {}
+
+  paymentInit() {
+    console.log("Payment initialized");
+  }
+
+  paymentDone(info: any) {
+    this.title = "Payment Done";
+    console.log(this.title, info);
+  }
+
+  ngOnInit() {
+     this.tx_ref ='' + Math.floor((Math.random() * 1000000000) + 1);
+  }
+}
+```
+
+Also you can use the `klashaOptions` object like so:
+
+```html
+<button
+  angular-klasha
+  [klashaOptions]="options"
+  (paymentInit)="paymentCancel()"
+  (callBack)="paymentDone($event)"
+>
+  Pay with Klasha
+</button>
+```
+
+And then in your `component.ts`
+
+```ts
+import { Component } from "@angular/core";
+import { KlashaOptions } from "angular-klasha";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+})
+export class AppComponent {
+  options: KlashaOptions = {
+    email: 'some-random-str',
+    phone_number: 'some-random-str',
+    merchantKey: 'some-random-str',
+    amount: 1000,
+    sourceCurrency: '',
+    destinationCurrency: '',
+    tx_ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+    businessId: '1',
+    fullname: 'some-random-str',
+    paymentDescription: '',
+    kit: {
+      currency: '',
+      phone_number: 'some-random-str',
+      email: 'some-random-str',
+      fullname: 'some-random-str',
+      tx_ref: '',
+      paymentType: '',
+    }
+  ;
+  constructor() {}
+
+  paymentInit() {
+    console.log("Payment initialized");
+  }
+
+  paymentDone(info: any) {
+    this.title = "Payment Done";
+    console.log(this.title, info);
+  }
+
+}
+```
+
+Also, you can pass in a merchantKey and businessId in the component and the directive, in such situation, this merchantKey and businessId is given a higher ptx_ref over the global `forRoot` merchantKey and businessId. For example, if you have this is your file
+
+```ts
+@NgModule({
+  imports: [
+    AngularKlashaModule.forRoot('merchantKey','businessId',false),
+  ]
+})
+```
+
+and this in your component
+
+```html
+<button
+  angular-klasha
+  [fullname]="'some-random-str'"
+  [phone_number]="'some-random-str'"
+  [paymentDescription]="'some-random-str'"
+  [email]="'mailexample@mail.com'"
+  [amount]="'1000000'"
+  [merchantKey]="'merchantKey2'"
+  [businessId]="'businessId2'"
+  [tx_ref]="'some-random-str'"
+  (callBack)="paymentDone($event)"
+>
+  Pay with Klasha
+</button>
+```
+
+Then `merchantKey2` and `businessId2` would be used instead
+
+## OPTIONS
+
+>The function accepts some parameters necessary for processing payment, and they include the following:
+
+| Parameters      | Description                                                                                                                 |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| merchantKey    | The key generated by the merchant after creating a business in the merchant dashboard. It can be the public or private key. |
+| amount          | The amount that is paid by the customer to the merchant.                                                                    |
+| Container id    | The id of an empty container div in your code. by default it is generated                                                                             |
+| callbackUrl    | The url your customers are being redirected to after processing payment.                                                    |
+| destinationCurrency    | The country code e.g NGN (Nigeria).                                                                                         |
+| sourceCurrency | The currency set by the merchant in which the price of goods is displayed.                                                  |
+| phone_number          | The customer’s phone number.                                                                                                                                                                                                                 |
+| email                 | The customer’s email address.                                                                                                                                                                                                                |
+| fullname             | The customer’s full name.                                                                                                                                                                                                                    |
+| tx_ref | The transaction reference number. It calls a javascript function `makeid(8)` where 8 is the length of the id. The length can be any number you desire and an example format is; klasha-8 to 12 digits-datetime (klasha-0123456789-01022021). |
+| Kit             | A JSONArray containing the customer’s info as well as the transaction reference.|
+
+> Kit can further be broken down into:
+
+| Parameters            | Description                                                                                                                                                                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| currency              | The currency in which payment is made.                                                                                                                                                                                                       |
+| phone_number          | The customer’s phone number.                                                                                                                                                                                                                 |
+| email                 | The customer’s email address.                                                                                                                                                                                                                |
+| fullname            | The customer’s full name.                                                                                                                                                                                                                    |
+| tx_ref | The transaction reference number. It calls a javascript function `makeid(8)` where 8 is the length of the id. The length can be any number you desire and an example format is; klasha-8 to 12 digits-datetime (klasha-0123456789-01022021). |
+| Call back             | A javascript function that is called after the payment has been made. It can return a successful or failed message depending on the status of the transaction.                                                                               |
+
+> For more information checkout [klasha's documentation](https://documenter.getpostman.com/view/8963555/TzJoFgHh)
+
+## Contributing
+
+Please feel free to fork this package and contribute by submitting a pull request to enhance the functionalities.
+
+## How can I thank you?
+
+Why not star the github repo? I'd love the attention! Why not share the link for this repository on Twitter or anywhere? Spread the word!
+
+Don't forget to [follow me on twitter](https://twitter.com/dansteveade)!
+
+Thanks!
+Dansteve Adekanbi.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

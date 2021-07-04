@@ -234,3 +234,15 @@
     --ion-card-background: #1e1e1e;
   }
 }
+
+
+.ComponentButtonPay{
+  button{
+    color: #fff !important;
+    background: teal !important;
+    border-radius: 20px !important;
+    height: 45px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
