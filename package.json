@@ -24,6 +24,9 @@
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.0.1",
     "@angular-eslint/builder": "~12.0.0",
