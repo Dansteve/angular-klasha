@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component } from '@angular/core';
-import { KlashaOptions } from 'project/angular-klasha/src/model/klasha-options';
+import { LoadingController } from '@ionic/angular';
+import { KlashaOptions } from 'angular-klasha';
 
 @Component({
   selector: 'app-home',
@@ -34,19 +35,26 @@ export class HomePage {
       paymentType: '',
     }
   };
+  loading: HTMLIonLoadingElement;
 
-  constructor() { }
+  constructor(public loadingController: LoadingController) { }
 
-  paymentInit(res: any) {
+  async paymentInit(res: any) {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    });
+    await this.loading.present();
     this.paymentData = null;
     this.options.tx_ref = '' + Math.floor((Math.random() * 1000000000) + 1),
       console.log('Payment initialized');
   }
 
-  paymentDone(res: any) {
+  async paymentDone(res: any) {
     console.log('Payment Done');
     console.log(res);
     this.paymentData = res;
+    await this.loading.dismiss();
   }
 
 }

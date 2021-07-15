@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 // import { AngularKlashaModule } from 'project/angular-klasha/src/public_api';
-import { AngularKlashaModule } from 'dist/angular-klasha';
+import { AngularKlashaModule } from 'angular-klasha';
 
 
 @NgModule({

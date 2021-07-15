@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { AngularKlashaModule } from 'dist/angular-klasha';
+import { AngularKlashaModule } from 'angular-klasha';
 // import { AngularKlashaModule } from 'project/angular-klasha/src/public_api';
 
 
