@@ -15,8 +15,8 @@ export class HomePage {
   paymentData: any = null;
 
   options: KlashaOptions = {
-    email: 'dansteve@email.com',
-    phone_number: '+2348143108254',
+    email: 'danstevea@gmail.com',
+    phone_number: '+2348159991635',
     merchantKey: 'GByi/gkhn5+BX4j6uI0lR7HCVo2NvTsVAQhyPko/uK4=',
     amount: 1000,
     sourceCurrency: '',
@@ -27,8 +27,8 @@ export class HomePage {
     paymentDescription: '',
     kit: {
       currency: '',
-      phone_number: '+2348143108254',
-      email: 'dansteve@email.com',
+      phone_number: '+2348159991635',
+      email: 'danstevea@gmail.com',
       fullname: 'Dansteve Adekanbi',
       tx_ref: '',
       paymentType: '',
